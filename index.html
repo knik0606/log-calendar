@@ -3,53 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log Calendar - Prototype</title>
+    <title>Log Calendar - Free Select Prototype</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-container">
         <header class="app-header">
-            <div class="header-top">
-                <h1 data-lang-key="title">Today:</h1>
-                <span id="current-date"></span>
-            </div>
-            <div class="language-selector">
-                <label for="lang-select" data-lang-key="languageLabel">언어:</label>
-                <select id="lang-select">
-                    <option value="ko">한국어</option>
-                    <option value="en">English</option>
-                    </select>
-            </div>
+            <h1>Log Calendar</h1>
+            <p id="current-date"></p>
         </header>
-        <div class="timeline-container">
-            <div class="time-labels"></div>
-            <div id="timeline" class="timeline"></div>
-        </div>
-    </div>
 
-    <div id="popup-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content">
-            <h3 data-lang-key="modalTitle">새로운 로그 추가</h3>
-            <p data-lang-key="modalTypePrompt">유형을 선택하세요:</p>
-            <div class="type-selector">
-                <button data-type="memo" data-lang-key="memo">메모</button>
-                <button data-type="todo" data-lang-key="todo">할 일</button>
-                <button data-type="event" data-lang-key="event">이벤트</button>
-            </div>
-            <textarea id="log-input" data-lang-key-placeholder="memoPlaceholder"></textarea>
-            
-            <div id="todo-input-area" style="display: none;">
-                <div class="todo-add-form">
-                    <input type="text" id="new-todo-item" data-lang-key-placeholder="todoPlaceholder">
-                    <button id="add-todo-item-btn">+</button>
-                </div>
-                <ul id="todo-list"></ul>
-            </div>
-
-            <div class="modal-actions">
-                <button id="save-log" data-lang-key="save">저장</button>
-                <button id="cancel-log" data-lang-key="cancel">취소</button>
-                <button id="delete-log" style="display: none;" data-lang-key="delete">삭제</button>
+        <div class="timeline-wrapper">
+            <div class="timeline-hours"></div>
+            <div class="timeline-container">
+                <div class="timeline-minutes"></div>
+                <div id="timeline-grid" class="timeline-grid">
+                    </div>
             </div>
         </div>
     </div>
