@@ -9,40 +9,47 @@
 <body>
     <div class="app-container">
         <header class="app-header">
-            <h1>Today: <span id="current-date"></span></h1>
+            <div class="header-top">
+                <h1 data-lang-key="title">Today:</h1>
+                <span id="current-date"></span>
+            </div>
+            <div class="language-selector">
+                <label for="lang-select" data-lang-key="languageLabel">언어:</label>
+                <select id="lang-select">
+                    <option value="ko">한국어</option>
+                    <option value="en">English</option>
+                    </select>
+            </div>
         </header>
         <div class="timeline-container">
-            <div class="time-labels">
-                </div>
-            <div id="timeline" class="timeline">
-                </div>
+            <div class="time-labels"></div>
+            <div id="timeline" class="timeline"></div>
         </div>
     </div>
 
     <div id="popup-modal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
-            <h3>새로운 로그 추가</h3>
-            <p>유형을 선택하세요:</p>
+            <h3 data-lang-key="modalTitle">새로운 로그 추가</h3>
+            <p data-lang-key="modalTypePrompt">유형을 선택하세요:</p>
             <div class="type-selector">
-                <button data-type="memo">메모</button>
-                <button data-type="todo">할 일</button>
-                <button data-type="event">이벤트</button>
+                <button data-type="memo" data-lang-key="memo">메모</button>
+                <button data-type="todo" data-lang-key="todo">할 일</button>
+                <button data-type="event" data-lang-key="event">이벤트</button>
             </div>
-            <textarea id="log-input" placeholder="내용을 입력하세요..."></textarea>
+            <textarea id="log-input" data-lang-key-placeholder="memoPlaceholder"></textarea>
             
             <div id="todo-input-area" style="display: none;">
                 <div class="todo-add-form">
-                    <input type="text" id="new-todo-item" placeholder="새 할 일 항목 추가...">
+                    <input type="text" id="new-todo-item" data-lang-key-placeholder="todoPlaceholder">
                     <button id="add-todo-item-btn">+</button>
                 </div>
-                <ul id="todo-list">
-                    </ul>
+                <ul id="todo-list"></ul>
             </div>
 
             <div class="modal-actions">
-                <button id="save-log">저장</button>
-                <button id="cancel-log">취소</button>
-                <button id="delete-log" style="display: none;">삭제</button>
+                <button id="save-log" data-lang-key="save">저장</button>
+                <button id="cancel-log" data-lang-key="cancel">취소</button>
+                <button id="delete-log" style="display: none;" data-lang-key="delete">삭제</button>
             </div>
         </div>
     </div>
