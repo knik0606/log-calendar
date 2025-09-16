@@ -1,9 +1,10 @@
+/* --- style.css 파일 전체를 아래 코드로 교체해주세요. --- */
 :root {
     --hour-height: 50px;
     --minute-width: 80px;
     --hour-label-width: 60px;
+    --sidebar-width: 150px;
 }
-
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #f0f2f5;
@@ -12,105 +13,78 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    /* 드래그 시 텍스트가 선택되는 것을 방지 */
     user-select: none;
 }
-
 .app-container {
-    width: 95%;
-    height: 95%;
-    max-width: 1200px;
-    max-height: 800px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    width: 95%; height: 95%; max-width: 1200px; max-height: 800px;
+    background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex; flex-direction: column; overflow: hidden;
 }
-
 .app-header {
-    padding: 10px 20px;
-    background-color: #4A90E2;
-    color: white;
-    text-align: center;
-    flex-shrink: 0;
+    padding: 10px 20px; background-color: #4A90E2; color: white;
+    text-align: center; flex-shrink: 0;
 }
 .app-header h1 { margin: 0; font-size: 1.2em; }
 .app-header p { margin: 5px 0 0; }
-
-.timeline-wrapper {
-    display: flex;
-    flex-grow: 1;
-    overflow: auto; /* ★★★ 이제 이 wrapper가 전체 스크롤을 담당 */
+.main-content { display: flex; flex-grow: 1; overflow: hidden; }
+.activity-sidebar {
+    width: var(--sidebar-width); flex-shrink: 0;
+    border-right: 1px solid #ddd; padding: 10px;
 }
-
+.activity-sidebar h3 { margin: 0 0 10px; }
+.domain-item {
+    padding: 8px; margin-bottom: 5px; border-radius: 4px; cursor: pointer;
+    border-left: 5px solid transparent; transition: background-color 0.2s;
+}
+.domain-item:hover { background-color: #f0f0f0; }
+.domain-item.selected { background-color: #e0eaf6; }
+.timeline-wrapper { display: flex; flex-grow: 1; overflow: auto; }
 .timeline-hours {
-    width: var(--hour-label-width);
-    flex-shrink: 0;
-    padding-top: 30px;
-    background: #fff;
-    position: sticky; /* ★★★ 왼쪽 고정 */
-    left: 0;
-    z-index: 20;
+    width: var(--hour-label-width); flex-shrink: 0;
+    padding-top: 30px; background: #fff; position: sticky;
+    left: 0; z-index: 20;
 }
-
 .hour-label {
-    height: var(--hour-height);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9em;
-    color: #555;
+    height: var(--hour-height); display: flex; align-items: center;
+    justify-content: center; font-size: 0.9em; color: #555;
     border-top: 1px solid #eee;
 }
-
-.timeline-container {
-    flex-grow: 1;
-    position: relative;
-}
-
+.timeline-container { flex-grow: 1; position: relative; }
 .timeline-minutes {
-    position: sticky; /* ★★★ 상단 고정 */
-    top: 0;
-    display: flex;
-    height: 30px;
-    background-color: #fff;
-    z-index: 10;
-    border-bottom: 1px solid #ccc;
+    position: sticky; top: 0; display: flex; height: 30px;
+    background-color: #fff; z-index: 10; border-bottom: 1px solid #ccc;
     width: calc(var(--minute-width) * 6);
 }
-
 .minute-label {
-    width: var(--minute-width);
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8em;
-    color: #777;
+    width: var(--minute-width); flex-shrink: 0; display: flex;
+    align-items: center; justify-content: flex-start;
+    font-size: 0.8em; color: #777; padding-left: 4px;
 }
-
-/* 메인 그리드 */
 .timeline-grid {
-    position: relative;
-    cursor: crosshair;
-    width: calc(var(--minute-width) * 6); 
-    height: calc(var(--hour-height) * 24);
+    position: relative; cursor: crosshair;
+    width: calc(var(--minute-width) * 6); height: calc(var(--hour-height) * 24);
     display: grid;
-    grid-template-columns: repeat(6, 1fr); /* 10분짜리 6개 열 */
-    grid-template-rows: repeat(24, 1fr); /* 1시간짜리 24개 행 */
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(24, 1fr);
 }
-
-/* ★★★ 개별 시간 칸 스타일 ★★★ */
 .grid-cell {
     border-right: 1px solid #eee;
     border-top: 1px solid #eee;
     box-sizing: border-box;
     transition: background-color 0.1s;
 }
+.grid-cell.selected { background-color: rgba(74, 144, 226, 0.6); }
 
-/* ★★★ 선택된 시간 칸 스타일 ★★★ */
-.grid-cell.selected {
-    background-color: rgba(74, 144, 226, 0.6);
+/* ★★★ Domain 선택 시 적용될 채우기 색상 ★★★ */
+.grid-cell.domain-fill {
+    background-color: rgba(200, 200, 200, 0.1);
+}
+
+/* ★★★ 드래그 동안 보일 임시 '고무줄' ★★★ */
+.cell-selection-rubberband {
+    position: absolute;
+    background-color: rgba(74, 144, 226, 0.3);
+    border: 1px dashed #3a75c4;
+    pointer-events: none;
+    z-index: 30;
 }
